@@ -1,0 +1,33 @@
+# 将这个文件复制并重命名为 config.toml 进行修改 toml格式 https://github.com/toml-lang/toml
+
+# nonebot的超级用户
+super_user=[]
+
+# 名称
+nickname=['']
+
+# linux上守护进程的pid_file
+pid_file=""
+
+# 守护进程的日志文件
+log_file=""
+
+# 与coolq-http-api插件对应的websocket服务器地址
+[server]
+    host="127.0.0.1"
+    port=8080
+
+# 各个api的key
+# 要key的基本上都要注册或者起码要邮箱，请自行搞定
+[api]
+    saucenao="" # saucenao搜图 https://saucenao.com/user.php?page=search-api
+    weather="" # 和风天气 https://dev.heweather.com/
+
+
+#搜本子用cookie
+#[excookie]
+
+#群欢迎
+[welcome]
+    at_menber=false
+    msg=""

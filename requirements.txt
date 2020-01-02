@@ -1,0 +1,20 @@
+jieba
+toml
+apscheduler
+# ujson
+aiocqhttp
+beautifulsoup4
+mako
+imgkit
+sqlalchemy
+pytz
+nonebot
+pymediawiki
+aiohttp
+async-timeout
+attrs
+chardet
+idna
+multidict
+yarl
+html5lib
