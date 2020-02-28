@@ -2,7 +2,7 @@
 
 这是一个娱乐性质的QQ bot，本身只是一个与cq-http-api交互的web服务器，需要和[coolq](https://cqp.cc/)和[CoolQ HTTP API](https://cqhttp.cc/)配合才能使用  
 基于 [nonebot](https://github.com/richardchien/nonebot) 开发  
-需要 Python 3.7+ 及 CoolQ HTTP API 插件 v4.7+
+需要 Python 3.7+ 及 CoolQ HTTP API 插件 v4.14+
 
 ## 安装
 
