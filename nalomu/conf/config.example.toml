@@ -12,6 +12,12 @@ pid_file=""
 # 守护进程的日志文件
 log_file=""
 
+# wkhtmltoimage路径
+wkhtmltoimage_path="D:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe"
+
+#使用docker部署
+using_docker=false
+
 # 与coolq-http-api插件对应的websocket服务器地址
 [server]
     host="127.0.0.1"
@@ -31,3 +37,4 @@ log_file=""
 [welcome]
     at_menber=false
     msg=""
+

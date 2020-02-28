@@ -5,11 +5,12 @@ import imgkit
 from bs4 import BeautifulSoup
 from mako.lookup import TemplateLookup
 from mako.template import Template
+from nonebot import logger
 from nonebot.session import BaseSession
 
-from nalomu import call_on_api_available
+from nalomu.plugins import call_on_api_available
 from nalomu.commands import BaseCommand
-
+from nalomu.config_loader import config as file_config
 
 class ImageCommand(BaseCommand):
     image_available = False
@@ -17,7 +18,11 @@ class ImageCommand(BaseCommand):
     def __init__(self, session: BaseSession):
         super().__init__(session)
         from config import TEMPLATES_ROOT
-        self.template_lookup = TemplateLookup(directories=[TEMPLATES_ROOT], module_directory='/tmp/mako_modules')
+        self.template_lookup = TemplateLookup(directories=[TEMPLATES_ROOT],
+                                              module_directory='/tmp/mako_modules',
+                                              input_encoding='utf-8',
+                                              output_encoding='utf-8',
+                                              default_filters=['decode.utf_8'])
 
     def render_image(self, view='', bg=False, width=500, **kwargs):
         from config import TEMPLATES_ROOT, DATA_ROOT, DATA_URL
@@ -30,9 +35,17 @@ class ImageCommand(BaseCommand):
         view = Template(filename=tpl_file, input_encoding='utf-8', output_encoding='utf-8', lookup=self.template_lookup)
         kwargs.update({'data_url': DATA_URL, 'cover': bg})
         html_str = view.render(**kwargs).decode('utf-8')
+        logger.debug(f"image_available: {self.image_available}")
         if self.image_available:
             # output
-            imgkit.from_string(html_str, output_path=img_file, css=css_file, options={'crop-w': width})
+
+            config = imgkit.config(wkhtmltoimage=file_config.wkhtmltoimage_path)
+            # imgkit.from_string(html_string, output_file, config=config)
+            imgkit.from_string(html_str,
+                               output_path=img_file,
+                               css=css_file,
+                               options={'crop-w': width},
+                               config=config)
             # return cq code
             return f'[CQ:image,cache=0,file={img_url}]'
         else:
@@ -44,4 +57,6 @@ class ImageCommand(BaseCommand):
 @call_on_api_available
 async def _():
     from nonebot import get_bot
-    ImageCommand.image_available = (await get_bot().can_send_image())['yes']
+    data = await get_bot().can_send_image()
+    logger.info(f"can_send_image:{data}")
+    ImageCommand.image_available = data['yes']

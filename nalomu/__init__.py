@@ -29,7 +29,5 @@ async def send_msg_to_group(group_id, msg: Message_T):
 
 
 from nalomu.util import NDict
-from nalomu import init
-from nalomu.init import call_on_api_available
-from nalomu import commands
+# from nalomu import commands
 # from nalomu.init import call_on_api_available

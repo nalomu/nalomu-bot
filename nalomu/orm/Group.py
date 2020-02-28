@@ -3,7 +3,7 @@ from typing import Iterable, Union
 import nonebot
 from sqlalchemy import Column, String, Integer, DateTime, SmallInteger, BigInteger
 
-from nalomu import call_on_api_available
+from nalomu.plugins import call_on_api_available
 from nalomu.orm import Base, Mixin, SessionManager
 
 

@@ -11,4 +11,7 @@ BOT_SWITCH = True
 APP_ROOT = path.abspath(path.dirname(__file__))
 DATA_ROOT = path.join(APP_ROOT, 'nalomu/data')
 TEMPLATES_ROOT = path.join(APP_ROOT, 'nalomu/templates')
-DATA_URL = f'http://{file_config.server.host}:{file_config.server.port}/data'
+if file_config.using_docker:
+    DATA_URL = f'http://{file_config.server.host}:{file_config.server.port}/data'
+else:
+    DATA_URL = f"file://{DATA_ROOT}"
