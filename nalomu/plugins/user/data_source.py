@@ -2,11 +2,13 @@ import math
 import pytz
 import random
 from datetime import datetime, timedelta
-from nonebot import logger
 
-from nalomu.config_loader import config
-from nalomu.orm import Session, User, UserPointLog
+from nonebot import logger
 from async_property import async_property
+
+from config import DATA_URL
+from nalomu.orm import Session, User, UserPointLog
+from nalomu.commands import ImageCommand
 
 try:
     import ujson as json
@@ -29,14 +31,7 @@ fortune_list = {
     "大凶": "",
 }
 
-
-# fortune_list = {'大吉': "运势大好",
-#                 '吉': "运势不错",
-#                 '小吉': "小吉炖蘑菇",
-#                 '无': "无中生有（）",
-#                 '小凶': "不要灰心，贫乳即正义（）",
-#                 '凶': "不要灰心，下次再来（）",
-#                 '大凶': "不要灰心，多喝热水（）"}
+fortune_list_image = [f"{DATA_URL}/fortunes/fortune-{i}.jpg" for i in range(7)]
 
 
 class NUser:
@@ -150,9 +145,11 @@ class NUser:
 
             # 保存最后一次签到的北京时间
             user.last_checkin = now
-
             # 保存今日运势
-            user.fortune = random.choice(list(fortune_list.keys()))
+            if ImageCommand.image_available:
+                user.fortune = random.randint(0, 6)
+            else:
+                user.fortune = random.choice(list(fortune_list.keys()))
             fortune = user.fortune
 
             # 重置绑签状态

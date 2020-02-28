@@ -3,7 +3,8 @@ import re
 from nonebot import IntentCommand, CommandSession
 
 from nalomu.commands import BaseCommand, method_command, method_parser, method_nlp
-from .data_source import NUser, fortune_list
+from nalomu.util import is_number
+from .data_source import NUser, fortune_list, fortune_list_image
 
 
 class UserCommands(BaseCommand):
@@ -41,11 +42,19 @@ class UserCommands(BaseCommand):
     @method_command('checkin', aliases=('签到', '簽到'), only_to_me=False)
     async def checkin(self):
         res = await self.user.checkin()
-        msg = f'签到成功，今日运势：{res}, {fortune_list[res]}(随机抽取，仅供参考)' if res else '已经签到过了'
-        await self.send(msg)
+        if res is not False:
+            if is_number(res):
+                await self.send('签到成功~')
+                await self.send_image(fortune_list_image[int(res)])
+                return
+            else:
+                msg = f'签到成功，今日运势：{res}, {fortune_list[res]}(随机抽取，仅供参考)'
+        else:
+            msg = f'已经签到过了'
+        await self.send(msg, at_sender=True)
 
     @method_command('bonus', aliases=('连签奖励',))
-    async def checkin(self):
+    async def bonus(self):
         res = await self.user.bonus()
         msg = "连签奖励：{}积分，最高连签奖励：{}积分".format(res['normal'], res['highest'])
         await self.send(msg)
@@ -59,10 +68,13 @@ class UserCommands(BaseCommand):
     @method_command("Today's fortune", aliases=('今日运势', '运势', '運勢'), only_to_me=False)
     async def todays_fortune(self):
         (is_checkin, fortune) = await self.user.fortune
-        msg = f'今日运势：{fortune}, {fortune_list[fortune]}(随机抽取，仅供参考)'
-        await self.send(msg)
+        if is_number(fortune):
+            await self.send_image(fortune_list_image[int(fortune)])
+        else:
+            msg = f'今日运势：{fortune}, {fortune_list[fortune]}(随机抽取，仅供参考)'
+            await self.send(msg, at_sender=True)
         if is_checkin:
-            await self.send('顺手签到成功~~~积分+10')
+            await self.send('顺手签到成功~~~积分+10', at_sender=True)
 
     @method_command('check_point', aliases=('查看积分', '积分'))
     async def check_point(self):

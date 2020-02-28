@@ -74,7 +74,7 @@ class BaseCommand:
             self.session.state[key] = stripped_msg
 
     async def send_image(self, img_url, no_cache=False):
-        await self.send(f'[CQ:image{",cache=0" if no_cache else ""},file={img_url}]')
+        await self.send(f'[CQ:image{",cache=0" if no_cache else ""},file={img_url}]', no_delay=True)
 
     @classmethod
     def get_usage(cls) -> Dict:
