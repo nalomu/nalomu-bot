@@ -17,7 +17,6 @@ from .data_source import get_weather_of_city
 
 
 class WeatherCommands(ImageCommand):
-
     plugin_name = "天气"
 
     @method_command('weather', aliases=('天气',))
@@ -35,7 +34,10 @@ weather/天气 [城市] [TYPE=now]
         try:
             weather = await get_weather_of_city(city, tdays)
             if weather:
-                await self.send(self.render_image('weather', weather=weather, width=1000, data_root=DATA_ROOT),
+                await self.send(self.render_image('weather',
+                                                  weather=weather,
+                                                  width=1000,
+                                                  data_root=DATA_ROOT),
                                 no_delay=True)
             else:
                 await self.send('没有查到结果;w;，是不是手滑输错城市了？')

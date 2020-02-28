@@ -22,7 +22,7 @@
         }
 
             <%
-                url = 'file:///{data_root}/images/weather-bg.jpg'.format(data_root=data_root,image=image)
+                url = 'file:///{data_root}/images/weather-bg.jpg'.format(data_root=data_root)
             %>
         .container-fluid {
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
