@@ -22,17 +22,22 @@
         }
 
             <%
-                url = 'file://{data_root}/images/weather-bg.jpg'.format(data_root=data_root)
+                import urllib.parse
+                url = 'file:///{data_root}/images/weather-bg.jpg'.format(
+                    data_root=urllib.parse.quote(data_root.replace('\\','/'), safe='/:',))
             %>
         .container-fluid {
-            background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
-            url('${url}') no-repeat top;
+            ## background: -webkit-gradient(linear,top,bottom, color-stop(0%,#0003),color-stop(100%,url('${url}'))) no-repeat top; /* 支持 Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
+            ## background: -moz-linear-gradient(#0003, #0003, url('${url}')) no-repeat top; /* 支持 Firefox (3.6 to 15) */
+            ## background: -o-linear-gradient(#0003, #0003, url('${url}')) no-repeat top; /* 支持旧 Opera (11.1 to 12.0) */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, .3)), color-stop(100%, rgba(255, 255, 255, .3))), url('${url}');
+            background: linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .3)), url('${url}') no-repeat top; /* 标准语法; 需要最新版本 */
             background-size: cover;
         }
 
         #content {
             min-height: 400px;
-            background-color: #0009;
+            background-color: rgba(0, 0, 0, .7);
             border-radius: 3px;
             border: 1px solid #fff;
             color: #eee;
@@ -42,7 +47,6 @@
 </head>
 <body>
 <div class="container-fluid p-5">
-
     <div class="row">
         <div class="offset-6 col" id="content">
             % if isinstance(weather, list):

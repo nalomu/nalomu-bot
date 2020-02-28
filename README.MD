@@ -50,7 +50,7 @@ bilibili直播提醒
 整点报时  
 萌娘百科  
 setu  
-天气(背景图片需要创建./nalomu/data文件夹并添加一张weather-bg.jpg)  
+天气(背景图片需要创建./nalomu/data/images文件夹并添加一张weather-bg.jpg)  
 反馈  
 摇号  
 搜图  
