@@ -1,7 +1,7 @@
 from typing import Optional, List, Dict
 
 from nonebot import CommandSession, NLPSession, NoticeSession
-from nonebot.command import CommandFunc
+from nonebot.command import Command
 from nonebot.session import BaseSession
 from nonebot.typing import Message_T, Filter_T
 
@@ -86,7 +86,7 @@ class BaseCommand:
         usages = {}
         for funcname in cls.__dict__:
             func = getattr(cls, funcname)
-            if isinstance(func, CommandFunc):
+            if isinstance(func, Command):
                 doc: str = func.func.__doc__.strip()
                 if doc and not doc.startswith(':not_usage:'):
                     usages[funcname] = doc

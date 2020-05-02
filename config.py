@@ -3,6 +3,8 @@ from os import path
 from nonebot.default_config import *
 from nalomu.config_loader import config as file_config
 
+HOST = file_config.server.host
+PORT = file_config.server.port
 SUPERUSERS = file_config.super_user
 COMMAND_START = {'', '/', '!', '／', '！'}
 NICKNAME = file_config.nickname

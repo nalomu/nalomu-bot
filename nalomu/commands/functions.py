@@ -1,8 +1,8 @@
 from functools import wraps
 from typing import Callable, Iterable, Union, Optional, Any, Awaitable, Type, Dict
 
-from nonebot import CommandSession, NLPSession, on_natural_language, logger
-from nonebot.command import on_command, CommandFunc
+from nonebot import CommandSession, NLPSession, on_natural_language, logger, on_command
+from nonebot.command import Command
 from nonebot.typing import CommandName_T
 from nonebot import permission as perm
 
@@ -19,7 +19,7 @@ def method_command(name: Union[str, CommandName_T], *,
                    privileged: bool = False,
                    shell_like: bool = False,
                    need_bot_open: bool = False) -> Callable:
-    def deco(func: MethodCommand_T) -> CommandFunc:
+    def deco(func: MethodCommand_T) -> Command:
         @wraps(func)
         async def wrapped_function(session: CommandSession):
             from config import BOT_SWITCH, NICKNAME
