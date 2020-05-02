@@ -25,10 +25,9 @@ class BotDaemon(Daemon):
             path.join(config.ROOT, 'nalomu', 'plugins'),
             'nalomu.plugins'
         )
-        configs = localconfig.server
         nonebot.load_builtin_plugins()
         init_http_api(nonebot.get_bot().server_app)
-        nonebot.run(host=configs.host, port=configs.port)
+        nonebot.run()
 
 
 if __name__ == '__main__':
