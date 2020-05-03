@@ -36,6 +36,22 @@
 [wkhtmltoimage](https://wkhtmltopdf.org/downloads.html)  
 安装之后需要在配置中填上路径
 
+## 内容
+nalomu/  
+----commands/ 命令封装类及方法  
+----conf/ 配置文件夹  
+----data/ 数据文件夹  
+----http_api/ http对外接口  
+----orm/ 数据库模型类  
+----plugins/ 插件目录，所有功能在这里实现  
+----templates/ 模板目录，用于html转img的模板  
+----util/ 工具目录  
+----\_\_init__.py 一些方法及模块导入  
+----config_loader.py 读取配置文件的类  
+bot.py 入口文件  
+config.py nonebot配置文件  
+daemon.py 后台运行类  
+
 ## 目前的功能
 
 打招呼  
