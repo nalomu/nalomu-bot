@@ -86,8 +86,8 @@ class BaseCommand:
         usages = {}
         for funcname in cls.__dict__:
             func = getattr(cls, funcname)
-            if isinstance(func, Command):
-                doc: str = func.func.__doc__.strip()
+            if hasattr(func, 'is_command') and getattr(func, 'is_command'):
+                doc: str = func.__doc__.strip()
                 if doc and not doc.startswith(':not_usage:'):
                     usages[funcname] = doc
         return usages

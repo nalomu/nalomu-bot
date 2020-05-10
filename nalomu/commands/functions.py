@@ -19,7 +19,7 @@ def method_command(name: Union[str, CommandName_T], *,
                    privileged: bool = False,
                    shell_like: bool = False,
                    need_bot_open: bool = False) -> Callable:
-    def deco(func: MethodCommand_T) -> Command:
+    def deco(func: MethodCommand_T) -> Callable:
         @wraps(func)
         async def wrapped_function(session: CommandSession):
             from config import BOT_SWITCH, NICKNAME
@@ -34,6 +34,7 @@ def method_command(name: Union[str, CommandName_T], *,
                 raise Exception('cannot resolve class from method')
             return await func(cls(session))
 
+        wrapped_function.is_command = True
         return on_command(name,
                           aliases=aliases,
                           permission=permission,
