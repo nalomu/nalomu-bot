@@ -22,9 +22,9 @@ hyperframe==5.2.0
 idna==2.9
 imgkit==1.0.2
 itsdangerous==1.1.0
-jieba==0.42.1
+jieba==0.42.
 Jinja2==2.11.3
-Mako==1.1.2
+Mako==1.2.2
 MarkupSafe==1.1.1
 multidict==4.7.5
 nonebot==1.6.0
