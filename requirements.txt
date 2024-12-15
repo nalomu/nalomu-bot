@@ -16,7 +16,7 @@ h2==3.2.0
 hpack==3.0.0
 hstspreload==2020.4.28
 html5lib==1.0.1
-httpx==0.12.1
+httpx==0.23.0
 Hypercorn==0.9.5
 hyperframe==5.2.0
 idna==2.9
